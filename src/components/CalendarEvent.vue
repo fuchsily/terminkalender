@@ -17,8 +17,12 @@
 
 <script>
 export default {
-    name: "CalendarEvent"
-}
+    name: "CalendarEvent",
+    props: {
+        event: Object,
+    },
+};
+
 </script>
 
 <style scoped>
