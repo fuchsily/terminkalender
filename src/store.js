@@ -15,6 +15,21 @@ const getters = {
 };
 
 const mutations = {
+    setActiveDay(dayId) {
+        state.calendarWeekData.map((dayObj) => {
+            dayObj.id === dayId ? (dayObj.active = true) : (dayObj.active = false);
+        });
+    },
+    // Termin zu Tag hinzufügen mit push
+    storeEvent(eventDO) {
+        const activeDay = getters.activeDay();
+        activeDay.events.push({
+            title: eventDO.title,
+            edit: false,
+            color: eventDO.color,
+            priority: Number(eventDO.priority),
+        });
+    },
     editEvent(dayId, eventTitle) {
         // alle edit-Attribute auf false setzen, damit immer nur ein Event bearbeitet werden kann
         state.calendarWeekData.map((dayObj) => {
@@ -26,13 +41,14 @@ const mutations = {
         const eventObj = dayObj.events.find((event) => event.title === eventTitle);
         eventObj.edit = true;
     },
-    updateEvent(dayId, oldEventTitle, newEventTitle) {
-        newEventTitle = newEventTitle !== "" ? newEventTitle : oldEventTitle;  // überprüft, ob ein neuer Titel eingetragen wurde
+    updateEvent(dayId, oldEventTitle, newEvent) {
+        newEvent.title = newEvent.title !== "" ? newEvent.title : oldEventTitle;  // überprüft, ob ein neuer Titel eingetragen wurde
         const dayObj = state.calendarWeekData.find((day) => day.id === dayId);
         const eventObj = dayObj.events.find(
             (event) => event.title === oldEventTitle
         );
-        eventObj.title = newEventTitle;
+        eventObj.title = newEvent.title;
+        eventObj.priority = Number(newEvent.priority);
         eventObj.edit = false;
     },
     deleteEvent(dayId, eventTitle) {

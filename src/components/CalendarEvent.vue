@@ -29,9 +29,14 @@
                 </div>
             </template>
 
-            <!-- Tamplet für das Editieren, hier sollen Inhalte bearbeitet werden können -->
+            <!-- Template für das Editieren, hier sollen Inhalte bearbeitet werden können -->
             <template v-else>
-                <input type="text" class="form-control" :placeholder="event.title" @input="setNewEventTitle($event)">
+                <input type="text" class="form-control" ref="newEventTitleInput" :placeholder="event.title" @input="setNewEventTitle($event)">
+                <select class="form-select mt-2" v-model="newEventPriority">
+                    <option value="-1">Hoch</option>
+                    <option value="0">Mittel</option>
+                    <option value="1">Gering</option>
+                </select>
                 <hr>
                 <i class="fas fa-check" role="button" @click="updateEvent"></i>
             </template>
@@ -51,20 +56,22 @@ export default {
     data() {
         return {
             newEventTitle: "",
+            newEventPriority: this.event.priority,
         }
     },
     computed: {
         //damit statt den Werten -1, 0, 1 Worte für die Priortät der Aufgaben aufgegeben werden
         priorityDisplayName() {
-            switch(this.event.priority) {
+            switch (this.event.priority) {
                 case 1:
-                    return "Wenig";
-                case 2:
+                    return "Gering";
+                case 0:
                     return "Mittel";
-                case 3:
+                case -1:
                     return "Hoch";
+                default:
+                    return "Unbekannte Priorität";
             }
-            return "Unbekannte Priorität";
         },
 
         //die Events einfärben über bootstrap klassen
@@ -78,12 +85,19 @@ export default {
         },
         editEvent() {
             Store.mutations.editEvent(this.day.id, this.event.title);
+            // auf die template refs zugreifen, mit nextTick warten bis das Template neu gerendert ist, damit es das input feld findet
+            this.$nextTick(() => {
+                this.$refs.newEventTitleInput.focus();
+            });
         },
         updateEvent() {
             Store.mutations.updateEvent(
                 this.day.id,
                 this.event.title,
-                this.newEventTitle
+                {
+                    title: this.newEventTitle,
+                    priority: this.newEventPriority,
+                }
             );
         },
         setNewEventTitle(event) {
