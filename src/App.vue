@@ -10,7 +10,7 @@
     <div class="row mt-3">
       <div class="col-4 offset-4">
         <!-- Anfang: Template für die Calendar-Entry-Component -->
-       <CalendarEntry></CalendarEntry>
+        <CalendarEntry></CalendarEntry>
         <!-- Ende: Template für die Calendar-Day-Component -->
       </div>
       <div class="col-2 offset-2">
@@ -30,9 +30,9 @@
 
 <script>
 // importiert Childcomponente, damit man es als tag im template verwenden kann
-import CalendarWeek from './components/CalendarWeek.vue';
-import CalendarEntry from './components/CalendarEntry.vue';
-import CalendarSettings from './components/CalendarSettings.vue';
+import CalendarWeek from "./components/CalendarWeek.vue";
+import CalendarEntry from "./components/CalendarEntry.vue";
+import CalendarSettings from "./components/CalendarSettings.vue";
 
 export default {
   name: "App",
@@ -43,8 +43,8 @@ export default {
     // Kurzschreibweise
     CalendarWeek,
     CalendarEntry,
-    CalendarSettings
-  }
+    CalendarSettings,
+  },
 };
 </script>
 
