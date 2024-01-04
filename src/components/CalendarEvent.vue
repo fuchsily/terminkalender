@@ -100,6 +100,7 @@ export default {
                 }
             );
         },
+        //Titel aktualisieren
         setNewEventTitle(event) {
             //aktueller Wert wird newEventTitle zugeordnet
             this.newEventTitle = event.target.value;

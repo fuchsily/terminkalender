@@ -1,3 +1,4 @@
+//Array von Objekten
 export const calendarWeekData = [
   {
     id: 1,

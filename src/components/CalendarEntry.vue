@@ -15,11 +15,11 @@
             placeholder="Neuer Eintrag"
             v-model="event.title"
             />
-            <!-- mit v-model daten an objekt binden -->
+            <!-- mit v-model daten an objekt binden, Auswahl der Priorität für neues Event -->
             <select class="form-select mt-2" v-model="event.priority">
             <option value="-1">Hoch</option>
             <option value="0">Mittel</option>
-            <option value="1">Tief</option>
+            <option value="1">Gering</option>
             </select>
             <div class="text-center mt-3">
             <span
@@ -94,5 +94,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

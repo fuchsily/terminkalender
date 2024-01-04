@@ -41,7 +41,7 @@ export default {
             required: true,
 
             // default: bei primitiven Datentypen z.b. default:100, bei nicht-primitiven Typen braucht man function
-            // dafault und validator sorgen für Warnmeldungen, wenn etwas nicht passt
+            // default und validator sorgen für Warnmeldungen, wenn etwas nicht passt
             default: function () {
                 return {
                     id: -1,
@@ -53,7 +53,6 @@ export default {
                 if (Object.keys(value).includes("id")) {
                     return true;
                 }
-
             },
         },
     },

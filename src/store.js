@@ -1,3 +1,4 @@
+//store: Verwaltung von Daten für eine Kalenderwoche
 import { calendarWeekData} from "./seed";
 
 // reactive: Daten in das reactivity system reinnehmen
@@ -5,15 +6,20 @@ import { reactive, readonly } from "vue";
 
 // drei JS-Objekte: state, getters und mutations
 
+// Hier werden die Zustandsvariablen der Anwendung definiert
 const state = reactive({
     calendarWeekData,
 });
 
-//aktiven Tag herausfinden
+// Hier werden Getter definiert, um abgeleitete Zustandsinformationen zu erhalten
+// Getter werden für berechnete Eigenschaften des Zustands verwendet
 const getters = {
+    //aktiven Tag herausfinden
     activeDay: () => state.calendarWeekData.find((day) => day.active),
 };
 
+// Hier werden Mutationen definiert, um den Zustand (von Objekten) zu verändern
+// Mutationen sind synchron und verändern den Zustand direkt
 const mutations = {
     setActiveDay(dayId) {
         state.calendarWeekData.map((dayObj) => {
