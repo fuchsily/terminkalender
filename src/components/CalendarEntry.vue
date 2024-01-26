@@ -11,11 +11,15 @@
         <div class="alert alert-danger" v-if="error">
           Der Titel darf nicht leer sein.
         </div>
+        <!-- keyup.enter ist ein Modifier, der dafür sorgt, dass eine FUnktion ausgeführt wird, wenn die Enter Taste losgelassen wird
+        exact sorgt dafür, dass wirklich nur die enter taste gedrückt werden darf und nicht noch eine weitere Taste -->
         <input
           type="text"
           class="form-control"
           placeholder="Neuer Eintrag"
           v-model="event.title"
+          @keyup.enter.exact="submitEvent()"
+          @keyup.ctrl.enter.exact="resetEventTitle()"
         />
         <!-- mit v-model daten an objekt binden, Auswahl der Priorität für neues Event -->
         <select class="form-select mt-2" v-model="event.priority">
@@ -39,7 +43,7 @@
           <button class="btn btn-primary" @click="submitEvent()">
             Eintragen
           </button>
-          <button class="btn btn-danger">Inhalt löschen</button>
+          <button class="btn btn-danger" @click="resetEventTitle()">Inhalt löschen</button>
         </div>
       </div>
     </div>
@@ -95,6 +99,9 @@ export default {
       };
       this.error = false;
     },
+    resetEventTitle() {
+      this.event.title = "";
+    }
   },
 };
 </script>
