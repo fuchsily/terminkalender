@@ -16,12 +16,13 @@
       <div class="col-2 offset-2">
         <div class="float-end">
           <!-- Mit dem Button blenden wir die Calendar-Settings-Component ein bzw. aus. -->
-          <button class="btn btn-lg mb-2">
+          <button class="btn btn-lg mb-2" :class="buttonSettingsClasses" @click="toggleDisplaySettings">
             <i class="fas fa-cogs"></i>
           </button>
         </div>
         <!-- Anfang: Template für die Calendar-Settings-Component -->
-        <CalendarSettings></CalendarSettings>
+        <!-- Unterschied v-if & v-show: v-if fügt Componente hinzu oder entfernt und v-show fügt diplay:none hinzu. Bei v-show wird componente immer geladen -->
+        <CalendarSettings v-if="displaySettings"></CalendarSettings>
         <!-- Ende: Template für die Calendar-Day-Component -->
       </div>
     </div>
@@ -45,6 +46,23 @@ export default {
     CalendarEntry,
     CalendarSettings,
   },
+  data() {
+    return {
+      displaySettings: false,
+    }
+  },
+  computed: {
+    // Fügt Stylings zu Einstellungen Buttons hinzu
+    buttonSettingsClasses() {
+      return this.displaySettings ? ["btn-success"] : ["btn-outline-success"]
+    }
+  },
+  methods: {
+    //für Ein- und Ausblenden der Settings
+    toggleDisplaySettings() {
+      this.displaySettings = !this.displaySettings;
+    }
+  }
 };
 </script>
 

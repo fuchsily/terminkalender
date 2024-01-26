@@ -17,6 +17,7 @@
           type="text"
           class="form-control"
           placeholder="Neuer Eintrag"
+          ref="eventTitleInput"
           v-model="event.title"
           @keyup.enter.exact="submitEvent()"
           @keyup.ctrl.enter.exact="resetEventTitle()"
@@ -71,6 +72,11 @@ export default {
     activeDayName() {
       return Store.getters.activeDay().fullName;
     },
+  },
+
+  mounted: function() {
+    // setzt Inputfeld für Title in focus
+    this.$refs.eventTitleInput.focus();
   },
 
   methods: {
