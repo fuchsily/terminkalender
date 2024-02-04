@@ -9,6 +9,7 @@ import { reactive, readonly } from "vue";
 // Hier werden die Zustandsvariablen der Anwendung definiert
 const state = reactive({
   calendarWeekData,
+  activeView: "CalendarWeek",
 });
 
 // Hier werden Getter definiert, um abgeleitete Zustandsinformationen zu erhalten
@@ -16,6 +17,7 @@ const state = reactive({
 const getters = {
   //aktiven Tag herausfinden
   activeDay: () => state.calendarWeekData.find((day) => day.active),
+  activeView: () => state.activeView,
 };
 
 // Hier werden Mutationen definiert, um den Zustand (von Objekten) zu verändern
@@ -25,6 +27,9 @@ const mutations = {
     state.calendarWeekData.map((dayObj) => {
       dayObj.id === dayId ? (dayObj.active = true) : (dayObj.active = false);
     });
+  },
+  setActiveView(view) {
+    state.activeView = view
   },
   // Termin zu Tag hinzufügen mit push
   storeEvent(eventDO) {
