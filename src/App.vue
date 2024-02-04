@@ -10,7 +10,9 @@
 
         <!-- keep alive: den state der componenten erhalten (z.B. eingaben, die noch nicht gespeichert wurden, werden bei view wechsel nicht verworfen) -->
         <keep-alive>
-          <component :is="activeView"></component>
+          <transition name="fade" mode="out-in" appear>
+            <component :is="activeView"></component>
+          </transition>
         </keep-alive>
         <!-- Ende: Template für die Calendar-Week-Component -->
       </div>
@@ -30,7 +32,11 @@
         </div>
         <!-- Anfang: Template für die Calendar-Settings-Component -->
         <!-- Unterschied v-if & v-show: v-if fügt Componente hinzu oder entfernt und v-show fügt diplay:none hinzu. Bei v-show wird componente immer geladen -->
-        <CalendarSettings v-if="displaySettings"></CalendarSettings>
+        
+        <!-- Transition Effekt auf Settings-->
+        <transition name="fade">
+          <CalendarSettings v-if="displaySettings"></CalendarSettings>
+        </transition>
         <!-- Ende: Template für die Calendar-Day-Component -->
       </div>
     </div>
@@ -44,7 +50,7 @@
 import Store from './store'
 // importiert Childcomponente, damit man es als tag im template verwenden kann
 import CalendarWeek from "./components/CalendarWeek.vue";
-import CalendarWeekAsList from './components/CalendarWeekAsList.vue';
+import CalendarWeekAsList from './components/CalendarWeekAsList';
 import CalendarEntry from "./components/CalendarEntry";
 import CalendarSettings from "./components/CalendarSettings.vue";
 
@@ -98,5 +104,18 @@ export default {
 .square {
   width: 40px;
   height: 40px;
+}
+
+/* Trasition fade, Namenskonvetion ist von vue so festgelegt */
+.fade-enter-from, .fade-leave-to {
+  opacity: 0;
+}
+
+.fade-enter-to, .fade-leave-from {
+  opacity: 1;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: all 0.5s ease-out;
 }
 </style>

@@ -10,7 +10,9 @@
     </div>
     <div class="card-body">
       <!-- verwenden titel als key, was nicht so optimal ist. Key sollte besser id sein sollte-->
-      <CalendarEvent
+      <transition name="fade" mode="out-in">
+        <div v-if="day.events.length">
+        <CalendarEvent
         v-for="event in day.events"
         :key="event.title"
         :event="event"
@@ -24,6 +26,13 @@
           <i>{{ event.title }}</i>
         </template>
       </CalendarEvent>
+      </div>
+      <div v-else>
+        <div class="alert alert-light text-center">
+          <i>Keine Termine</i>
+        </div>
+      </div>
+      </transition>
     </div>
   </div>
 </template>
